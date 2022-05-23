@@ -6,7 +6,10 @@
     <li>
       <h4>Titolo: {{movie.title}}</h4>
       <h6>Titolo Originale: {{movie.original_title}}</h6>
-      <p>Lingua Originale: {{movie.original_language}}</p>
+      <div v-if="movie.original_language == 'en'"><span>Lingua Originale: </span><img src="../assets/img/eng.png" alt=""></div>
+      <div v-else-if="movie.original_language == 'it'"><span>Lingua Originale: </span><img src="../assets/img/ita.svg" alt=""></div>
+      <div v-else-if="movie.original_language == 'ja'"><span>Lingua Originale: </span><img src="../assets/img/jap.png" alt=""></div>
+      <p v-else>Lingua Originale: {{movie.original_language}}</p>
       <p>Voto: {{movie.vote_average}}</p>
       <p>Sinossi: </p>
       <p>{{movie.overview}}</p>
@@ -40,6 +43,12 @@ ul {
   list-style: none;
 }
 
+img {
+  width: 20px;
+  
+}
+
+
 .card-movie {
     width: 250px;
     height: 350px;
@@ -48,6 +57,7 @@ ul {
     margin: 30px 10px;
     color: #FFFFFF;
     overflow-y: auto;
+    
   }
 
 </style>

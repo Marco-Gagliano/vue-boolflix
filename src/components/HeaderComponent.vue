@@ -9,7 +9,7 @@
       <div class="search-movies">
 
         <input  @keyup.enter="$emit('startSearch', searchTitle)"
-                v-model="searchTitle"
+                v-model.trim="searchTitle"
                 class="form-control"
                 type="text" 
                 placeholder="Esegui qui la tua ricerca... ">
@@ -33,10 +33,7 @@ export default {
   },
 
   methods:{
-    startSearch() {
-      this.$emit('startSearch', this.searchTitle);
-      this.searchTitle = '';
-    }
+    
   }
 
 }
@@ -52,15 +49,12 @@ export default {
   input {
     margin: 0 20px;
     padding: 5px 15px;
-    text-align: center;
     border-radius: 5px;
     border: 0px;
   }
 
-  
   img {
     width: 22%;
   }
-
 
 </style>

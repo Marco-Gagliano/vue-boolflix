@@ -11,7 +11,7 @@
       <span class="loader"></span>
     </div> -->
 
-    <MainComponent :movieList="movieList"/>
+    <MainComponent :movieList="movieList" :seriesList="seriesList"/>
 
   </div>
 </template>
@@ -31,25 +31,30 @@ export default {
 
   data() {
     return {
-      apiURL: "https://api.themoviedb.org/3/search/movie",
-      apiParams: {
+      apiURLMovie: "https://api.themoviedb.org/3/search/movie",
+      apiParamsMovie: {
         api_key: "6bb3bf68889e21ad45904086318351a4",
         language: "it-IT",
         query: "",
       },
-      // apiUrlSeries: "https://api.themoviedb.org/3/search/tv",
       movieList: [],
-      seriesList: []
+
+      apiURLSeries: "https://api.themoviedb.org/3/search/tv",
+      apiParamsSeries: {
+        api_key: "6bb3bf68889e21ad45904086318351a4",
+        language: "it-IT",
+        query: "",
+      },
+      seriesList: [],
       // loadingPage: true,
     }
   },
 
   methods: {
 
-    getApi(){
-      axios.get(this.apiURL, {
-        params: this.apiParams
-          // this.query = this.checkMovie;
+    getApiMovie(){
+      axios.get(this.apiURLMovie, {
+        params: this.apiParamsMovie
       })
 
       .then(res => {
@@ -62,9 +67,26 @@ export default {
       })
     },
 
+    getApiSeries(){
+      axios.get(this.apiURLSeries, {
+        params: this.apiParamsSeries
+      })
+
+      .then(res => {
+        // console.log(res.data);
+        this.seriesList = res.data.results;
+      })
+
+      .catch(err => {
+        console.log(err);
+      })
+    },
+
     textToSearch(search) {
-      this.apiParams.query = search;
-      this.getApi();
+      this.apiParamsMovie.query = search;
+      this.getApiMovie();
+      this.apiParamsSeries.query = search;
+      this.getApiSeries();
       console.log(search);
     },
 

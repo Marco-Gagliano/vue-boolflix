@@ -7,7 +7,7 @@
       
       <MovieComponent v-for="(movie, i) in movieList" :key="`movie${i}`" :movie="movie"/>
 
-      <!-- <SeriesComponent v-for="(serie, i) in seriesList" :key="`series${i}`" /> -->
+      <SeriesComponent v-for="(series, i) in seriesList" :key="`series${i}`" :series="series"/>
 
     </div>
   </main>
@@ -17,14 +17,13 @@
 <script>
 
 import MovieComponent from './MovieComponent.vue';
-// import SeriesComponent from './SeriesComponent.vue';
+import SeriesComponent from './SeriesComponent.vue';
 
 
 export default {
     name: "MainComponent",
 
-    components: { MovieComponent },
-    // components: { SeriesComponent },
+    components: { MovieComponent, SeriesComponent },
 
     props: {
       movieList: Array,

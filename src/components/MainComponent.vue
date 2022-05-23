@@ -2,7 +2,7 @@
   
   <main class="container-fluid">
 
-    <div class="container d-flex flex-wrap justify-content-between">
+    <div class="container d-flex flex-wrap">
       
       
       <MovieComponent v-for="(movie, i) in movieList" :key="`movie${i}`" :movie="movie"/>

@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <div class="card-movie">
   <CardComponent  v-for="(movie, index) in listMovie"
                     :key="`album${index}`"
                     :title="movie.title"
@@ -28,5 +28,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.card-movie {
+    width: 200px;
+    height: 350px;
+    background-color: #252525;
+    border: 1px solid #FF1111;
+    margin: 30px 25px;
+    text-align: center;
+    color: #FFFFFF;
+    
+  }
 
 </style>

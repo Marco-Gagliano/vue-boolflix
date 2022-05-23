@@ -3,14 +3,12 @@
   <main class="container-fluid">
 
     <div class="container d-flex flex-wrap justify-content-between">
-
-      <CardComponent v-for="card in movieList" :key="card.id" :dataCard="card"/>
       
-      <MovieComponent 
-      />
-
-      <!-- :movieList="MovieList" -->
       
+      <MovieComponent v-for="(movie, i) in movieList" :key="`movie${i}`" :movie="movie"/>
+
+      <!-- <SeriesComponent v-for="(serie, i) in seriesList" :key="`series${i}`" /> -->
+
     </div>
   </main>
   
@@ -18,17 +16,19 @@
 
 <script>
 
-import CardComponent from './CardComponent.vue';
 import MovieComponent from './MovieComponent.vue';
+// import SeriesComponent from './SeriesComponent.vue';
 
 
 export default {
     name: "MainComponent",
 
-    components: { CardComponent, MovieComponent },
+    components: { MovieComponent },
+    // components: { SeriesComponent },
 
     props: {
-      movieList: Array
+      movieList: Array,
+      seriesList: Array
     }
 }
 </script>
@@ -40,6 +40,5 @@ export default {
     height: 100%;
     padding-top: 15px;
   }
-
 
 </style>

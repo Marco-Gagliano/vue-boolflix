@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     
-    <HeaderComponent @startSearch="searchMovie"/>
+    <HeaderComponent @startSearch="textToSearch"/>
 
     <!-- <div class="container" v-if="loadingPage"></div> -->
 
@@ -31,28 +31,29 @@ export default {
 
   data() {
     return {
-      apiUrl: 'https://api.themoviedb.org/3/search/movie',
+      apiURL: "https://api.themoviedb.org/3/search/movie",
       apiParams: {
-        apiKey: '6bb3bf68889e21ad45904086318351a4',
-        language: 'it-IT',
-        query: '',
+        api_key: "6bb3bf68889e21ad45904086318351a4",
+        language: "it-IT",
+        query: "",
       },
-      // loadingPage: true,
+      // apiUrlSeries: "https://api.themoviedb.org/3/search/tv",
       movieList: [],
       seriesList: []
+      // loadingPage: true,
     }
   },
 
   methods: {
 
     getApi(){
-      axios.get(this.apiUrl, {
+      axios.get(this.apiURL, {
         params: this.apiParams
           // this.query = this.checkMovie;
       })
 
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.movieList = res.data.results;
       })
 
@@ -61,10 +62,10 @@ export default {
       })
     },
 
-    searchMovie(searchTitle) {
-      this.apiParams.query = searchTitle;
+    textToSearch(search) {
+      this.apiParams.query = search;
       this.getApi();
-      console.log(searchTitle);
+      console.log(search);
     },
 
 

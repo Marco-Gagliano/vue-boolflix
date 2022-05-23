@@ -1,26 +1,33 @@
 <template>
 
   <div class="card-movie">
-  <CardComponent  v-for="(movie, index) in listMovie"
-                    :key="`album${index}`"
-                    :title="movie.title"
-                    :originalTitle="movie.original_title"
-                    :language="movie.language"
-                    :vote="movie.vote"
-                    />
+
+  <ul>
+    <li>
+      <h4>Titolo: {{movie.title}}</h4>
+      <h6>Titolo Originale: {{movie.original_title}}</h6>
+      <p>Lingua Originale: {{movie.original_language}}</p>
+      <p>Voto: {{movie.vote_average}}</p>
+      <p>Sinossi: </p>
+      <p>{{movie.overview}}</p>
+    </li>
+  </ul>
+
+  
+
+
   </div>
 
 </template>
 
 <script>
 
-import CardComponent from './CardComponent.vue';
 
 export default {
     name: "MovieComponent",
-    components: { CardComponent },
+    
     props: {
-      listMovie: Array
+      movie: Object
     }
 
 
@@ -29,15 +36,18 @@ export default {
 
 <style lang="scss" scoped>
 
+ul {
+  list-style: none;
+}
+
 .card-movie {
-    width: 200px;
+    width: 250px;
     height: 350px;
     background-color: #252525;
     border: 1px solid #FF1111;
-    margin: 30px 25px;
-    text-align: center;
+    margin: 30px 10px;
     color: #FFFFFF;
-    
+    overflow-y: auto;
   }
 
 </style>

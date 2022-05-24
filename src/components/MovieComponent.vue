@@ -4,6 +4,8 @@
     <div class="flip-card">
       <div class="flip-card-inner">
 
+      
+
         <div class="flip-card-front">
           <img v-if="movie.poster_path" class="poster" :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" alt="Poster Movie">
           <img v-else class="poster" src="../assets/img/noposter.png" alt="No Poster Movie">
@@ -13,19 +15,31 @@
           <ul>
             <li>
 
-            <h4>Titolo: {{movie.title}}</h4>
-            <h6>Titolo Originale: {{movie.original_title}}</h6>
+              <h4>Titolo: {{movie.title}}</h4>
+              <h6>Titolo Originale: {{movie.original_title}}</h6>
 
-            <div v-if="movie.original_language == 'en'"><span>Lingua Originale: </span><img src="../assets/img/eng.png" alt=""></div>
+              <div v-if="movie.original_language == 'en'"><span>Lingua Originale: </span><img src="../assets/img/eng.png" alt=""></div>
 
-            <div v-else-if="movie.original_language == 'it'"><span>Lingua Originale: </span><img src="../assets/img/ita.svg" alt=""></div>
+              <div v-else-if="movie.original_language == 'it'"><span>Lingua Originale: </span><img src="../assets/img/ita.svg" alt=""></div>
 
-            <div v-else-if="movie.original_language == 'ja'"><span>Lingua Originale: </span><img src="../assets/img/jap.png" alt=""></div>
+              <div v-else-if="movie.original_language == 'ja'"><span>Lingua Originale: </span><img src="../assets/img/jap.png" alt=""></div>
 
-            <p v-else>Lingua Originale: {{movie.original_language}}</p>
-            <p>Voto: {{movie.vote_average}}</p>
-            <p>Sinossi: </p>
-            <p>{{movie.overview}}</p>
+              <p v-else>Lingua Originale: {{movie.original_language}}</p>
+              
+              <p>Voto:
+
+              <span v-for="(star, i) in voteStars()" :key="i">
+                <i class="fa-solid fa-star"></i>
+              </span>
+
+              <span v-for="(emptyStar, i) in emptyStars()" :key="i">
+                <i class="fa-regular fa-star"></i>
+              </span>
+              
+              </p>
+
+              <p>Sinossi: </p>
+              <p>{{movie.overview}}</p>
 
             </li>
           </ul>
@@ -43,8 +57,25 @@ export default {
   name: "MovieComponent",
   
   props: {
-    movie: Object
-  }
+    movie: Object,
+    itemTitle: String
+  },
+
+  data(){
+    return {
+      maxStars: 5
+    };
+  },
+
+  methods: {
+    voteStars() {
+      return Math.round(this.movie.vote_average / 2);
+    },
+
+    emptyStars() {
+      return this.maxStars - this.voteStars();
+    },
+  },
 
 }
 </script>

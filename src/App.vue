@@ -3,15 +3,8 @@
     
     <HeaderComponent @startSearch="textToSearch"/>
 
-    <!-- <div class="container" v-if="loadingPage"></div> -->
-
-    <!-- utilizzo del v-else if (?)in cui se la "nome array == 0" inserire un messaggio dentro un h4-->
-
-    <!-- <div v-else>
-      <span class="loader"></span>
-    </div> -->
-
-    <MainComponent :movieList="movieList" :seriesList="seriesList"/>
+    <MainComponent itemTitle="Film" :movieList="movieList"/>
+    <MainComponent itemTitle="Serie TV" :seriesList="seriesList"/>
 
   </div>
 </template>

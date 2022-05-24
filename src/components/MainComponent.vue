@@ -2,8 +2,9 @@
   
   <main class="container-fluid">
 
-    <div class="container d-flex flex-wrap">
-      
+    <h1>{{itemTitle}}</h1>
+
+    <div class="movie-card container d-flex flex-nowrap">
       
       <MovieComponent v-for="(movie, i) in movieList" :key="`movie${i}`" :movie="movie"/>
 
@@ -27,17 +28,29 @@ export default {
 
     props: {
       movieList: Array,
-      seriesList: Array
+      seriesList: Array,
+      itemTitle: String
+      
     }
 }
 </script>
 
 <style lang="scss" scoped>
 
+  h1 {
+    margin: 10px
+  }
+
   main {
     background-color: #111111;
     height: 100%;
     padding-top: 15px;
+  }
+
+  .movie-card {
+    overflow-x: auto;
+    scrollbar-width: thin;          
+    scrollbar-color: blue orange;
   }
 
 </style>

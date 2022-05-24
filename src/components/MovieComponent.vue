@@ -4,8 +4,6 @@
     <div class="flip-card">
       <div class="flip-card-inner">
 
-      
-
         <div class="flip-card-front">
           <img v-if="movie.poster_path" class="poster" :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" alt="Poster Movie">
           <img v-else class="poster" src="../assets/img/noposter.png" alt="No Poster Movie">
@@ -28,13 +26,15 @@
               
               <p>Voto:
 
-              <span v-for="(star, i) in voteStars()" :key="i">
-                <i class="fa-solid fa-star"></i>
-              </span>
+                <span v-for="(star, i) in voteStars()" :key="`star${i}`">
+                  <i class="fa-solid fa-star"></i>
+                </span>
 
-              <span v-for="(emptyStar, i) in emptyStars()" :key="i">
-                <i class="fa-regular fa-star"></i>
-              </span>
+                <span v-for="(emptyStar, i) in emptyStars()" :key="`emptyStar${i}`">
+                  <i class="fa-regular fa-star"></i>
+                </span>
+
+                {{movie.vote_average / 2}}
               
               </p>
 
@@ -51,6 +51,7 @@
 
 </template>
 
+
 <script>
 
 export default {
@@ -58,7 +59,6 @@ export default {
   
   props: {
     movie: Object,
-    itemTitle: String
   },
 
   data(){
@@ -80,7 +80,10 @@ export default {
 }
 </script>
 
+
 <style lang="scss" scoped>
+
+  @import '../assets/style/vars';
 
   ul {
     list-style: none;
@@ -93,23 +96,22 @@ export default {
   }
 
   .poster {
-    width: 250px;
-    height: 350px;
+    width: 400px;
+    height: 550px;
   }
 
   .card-movie {
-    width: 250px;
-    height: 350px;
-    margin: 30px 10px;
+    width: 400px;
+    height: 600px;
+    margin: 20px 5px;
     color: #FFFFFF;
   }
 
   .flip-card {
     background-color: transparent;
-    width: 250px;
-    height: 350px;
+    width: 400px;
+    height: 550px;
     perspective: 1000px;
-    
   }
 
   .flip-card-inner {
@@ -119,7 +121,6 @@ export default {
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-    
   }
 
   .flip-card:hover .flip-card-inner {

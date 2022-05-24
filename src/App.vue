@@ -1,13 +1,21 @@
 <template>
+
   <div id="app">
+
+    <div v-if="loadingPage">
     
-    <HeaderComponent @startSearch="textToSearch"/>
+      <HeaderComponent @startSearch="textToSearch"/>
+      <MainComponent itemTitle="Film" :movieList="movieList"/>
+      <MainComponent itemTitle="Serie TV" :seriesList="seriesList"/>
 
-    <MainComponent itemTitle="Film" :movieList="movieList"/>
-    <MainComponent itemTitle="Serie TV" :seriesList="seriesList"/>
+    </div>
 
+    <div v-else class="screen"></div>
+  
   </div>
+
 </template>
+
 
 <script>
 
@@ -25,21 +33,15 @@ export default {
   data() {
     return {
       apiURLMovie: "https://api.themoviedb.org/3/search/movie",
-      apiParamsMovie: {
+      apiURLSeries: "https://api.themoviedb.org/3/search/tv",
+      apiParams: {
         api_key: "6bb3bf68889e21ad45904086318351a4",
         language: "it-IT",
         query: "",
       },
       movieList: [],
-
-      apiURLSeries: "https://api.themoviedb.org/3/search/tv",
-      apiParamsSeries: {
-        api_key: "6bb3bf68889e21ad45904086318351a4",
-        language: "it-IT",
-        query: "",
-      },
       seriesList: [],
-      // loadingPage: true,
+      loadingPage: false,
     }
   },
 
@@ -47,7 +49,7 @@ export default {
 
     getApiMovie(){
       axios.get(this.apiURLMovie, {
-        params: this.apiParamsMovie
+        params: this.apiParams
       })
 
       .then(res => {
@@ -62,7 +64,7 @@ export default {
 
     getApiSeries(){
       axios.get(this.apiURLSeries, {
-        params: this.apiParamsSeries
+        params: this.apiParams
       })
 
       .then(res => {
@@ -76,20 +78,24 @@ export default {
     },
 
     textToSearch(search) {
-      this.apiParamsMovie.query = search;
+      this.apiParams.query = search;
       this.getApiMovie();
-      this.apiParamsSeries.query = search;
       this.getApiSeries();
-      console.log(search);
+      // console.log(search);
     },
 
-
+    screenSite() {
+      this.loadingPage = true
+    }
   },
 
+  mounted() {
+    setTimeout(this.screenSite, 3500)
+  }
 }
 
-
 </script>
+
 
 <style lang="scss">
 
@@ -97,10 +103,18 @@ export default {
   @import './assets/style/vars';
   @import './assets/style/mixins';
 
+  .screen {
+    background-image: url(./assets/img/2772922.webp);
+    background-size: cover;
+    background-position: center;
+    // width: 100vw;
+    height: 100vh;
+  }
+
   .loader {
-  position: relative;
-  width: 100px;
-  height: 100px;
+    position: relative;
+    width: 100px;
+    height: 100px;
   }
 
   .loader:before , .loader:after{
@@ -121,5 +135,4 @@ export default {
     100% { transform: rotate(360deg)}
   }
     
-
 </style>
